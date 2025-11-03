@@ -1,0 +1,212 @@
+#+OPTIONS: TOC:nil
+
+[[https://0dependencies.dev][https://0dependencies.dev/0dependencies.svg]]
+
+[[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/python-version.svg]] [[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/black-badge.svg]]
+
+[[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/tests-badge.svg]] [[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/flake8-badge.svg]]
+
+* purpose of the project
+
+This tests the publication of a Python wheel on the PyPI with
+documentation originally maintained in a =README.org= file instead of
+the officially supported =README.md=, =README.rst=, or plain text
+=README.txt=.
+
+** functionality by the script
+
+As proof of concept, the functionality of the script is constrained to
+
+- return a greeting
+- betting good bye
+- describe usage by optional flags =--help= and =-h=, as shown below:
+
+#+begin_src sh :results nil
+$ greet2org -h
+usage: greet2org [-h] [-n str] [-g]
+
+Greet, or bet good bye to someone. More importantly though, document the project
+by a git managed README.org file instead of a README.md in GitHub flavored
+Markdown.
+
+options:
+  -h, --help      show this help message and exit
+  -n, --name str  The name to address (default: World)
+  -g, --goodbye   Instead of a hello, bet good bye (default: False)
+#+end_src
+
+** documentation with Orgmode
+
+Similar to [[https://en.wikipedia.org/wiki/Markdown][Markdown]] (=.md=) and [[https://en.wikipedia.org/wiki/ReStructuredText][reStructuredText]] (=.rst=), [[https://orgmode.org/][Orgmode]]
+(=.org) is a [[https://en.wikipedia.org/wiki/Lightweight_markup_language][lightweight markup language (LML)]].  Contrasting to the
+many flavours of Markdown (and to somewhat lesser degree
+reStructuredText) with subtle differences in syntax and support of
+features, Orgmode /as a markup/ is more strict.  See for instance Karl
+Voit's [[https://gitlab.com/publicvoit/orgdown/-/blob/master/doc/Overview.org][overview]], and [[https://karl-voit.at/2025/08/17/Markdown-disaster/][discussion]] in comparison to Markdown.
+
+Orgmode is well supported both as import and export format by [[https://pandoc.org/][pandoc]].
+Depending on the editor used, Orgmode files can be edited, included
+source code can be annotated ([[https://en.wikipedia.org/wiki/Literate_programming][literate programming]]) and executed
+([[https://youtu.be/fgizHHd7nOo?t=767][example]]).  Initially created for [[https://www.gnu.org/software/emacs/][Emacs]] (where it became an included
+major mode), Orgmode equally is available for instance for [[https://github.com/jceb/vim-orgmode][vim]], or
+[[https://github.com/vscode-org-mode/vscode-org-mode][Visual Studio Code]].  Orgmode /as syntax/ however is agnostic to the
+editor used.
+
+Because PyPi currently does not provide support for Orgmode (see [[https://packaging.python.org/en/latest/guides/making-a-pypi-friendly-readme/][here]],
+last visit October 2025), GitHub workflow =build_wheel.yml= of this
+project calls a Pandoc docker image to translate this file into a
+=README.md= the PyPI can manage.  The following compiles examples of
+syntax known to be supported in the workflow, and indicates recognized
+pitfalls.
+
+To document a project, individual words can be marked as /italic/,
+*bold*, =monospace= (enclosed in equal signs) and ~monospace~
+(enclosed by tildes).  Snippets of code can be documented as /code
+blocks/ with optional syntax highlighting.  By experimenting on
+[[https://test.pypi.org/][test.pypi.org]], this is known to work for instance with
+
+- AWK:
+
+  #+begin_src awk
+#!/usr/bin/awk -f
+
+function ratio (long_lines, all_lines) {
+  return sprintf("\n%s lines of %s (which is %.2f%% of the total) require an edit.",
+    long_lines, all_lines, (long_lines/all_lines))
+}
+
+BEGIN {print "file, line number, and start of the line if a line length exceeds 79 characters:\n";
+  counter = 0}
+
+{
+  if (length($0) > 79) {
+    printf("%s\t%5.i: %.40s\n", FILENAME, NR, $0);
+    counter += 1;
+    }
+}
+
+END {print(ratio(counter, NR)) }
+  #+end_src
+
+- BASH
+
+  #+begin_src bash
+#!/usr/bin/env bash
+for "$file" in *.png:
+do
+    optipng "$file"
+done
+  #+end_src
+
+- Fortran
+
+  #+begin_src f90
+program test
+   implicit none (external)
+   integer :: i, double, square
+
+   do i = -5, 5, 2
+      double = 2 * i
+      square = i ** 2
+      write (*, "(3(i3, 1x))") i, double, square
+   end do
+
+end program test
+  #+end_src
+
+- Python
+
+  #+begin_src python
+#!/usr/bin/env python3
+for i in range(8):
+    if i == 2:
+        print("hello")
+  #+end_src
+
+which may be used to execute Python code, or may be called by Python.
+
+Note, already simple in-line mathematical equations (defined by an
+input like =$E = mc^2$=) /are not/ suitable for the =README.org=; they
+cause the conversion to fail.  Either consider a different location of
+documentation, or embedd the equation as an illustration (/vide
+infra/).  Define external (literature) references by an link (example,
+link to [[https://pypi.org/][PyPI]]), rather than a footnote.
+
+** Orgmode tables
+
+Orgmode tables are well supported, including their optional table
+formulae.  Depending on the renderer on GitHub or PyPI, captions
+however may be lost, or not easy to discern from running text:
+
+#+CAPTION: A table partially filled by `TBLFM`
+| x | square of x | cube of x | square root of x |
+|---+-------------+-----------+------------------|
+| 0 |           0 |         0 |             0.00 |
+| 1 |           1 |         1 |             1.00 |
+| 2 |           4 |         8 |             1.41 |
+| 3 |           9 |        27 |             1.73 |
+| 4 |          16 |        64 |             2.00 |
+| 5 |          25 |       125 |             2.24 |
+#+TBLFM: $2=$1^2::$3=$1^3::$4=sqrt($1);%.2f
+
+** Illustrations
+
+PyPI supports illustrations only if defined with an absolute address
+to the file in a repository outside PyPI.  Permitted file formats
+include
+
+- =.png=, as for instance the Wikipedia globe (source [[https://en.wikipedia.org/wiki/File:Wikipedia-logo-v2.svg][here]]):
+  
+  [[https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/103px-Wikipedia-logo-v2.svg.png]]
+
+- static, or dynamic =.gif=, for instance to provide a brief (looped)
+  demo.  An example is file =Rotating earth (large).gif= as sourced on
+  the Wikipedia project [[https://commons.wikimedia.org/wiki/File:Rotating_earth_(large).gif][here]]:
+  
+  [[https://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif]]
+
+- PyPI equally accepts the reference to =.svg=, example (source [[https://commons.wikimedia.org/wiki/File:Svg-example.svg][here]]):
+
+  [[https://upload.wikimedia.org/wikipedia/commons/6/68/Svg-example.svg]]
+
+Shields and badges about a project (compare =README.org= for examples)
+are a particular type of illustration.  Frequently, it is safer to
+collect them as =.svg= files (see documentation in workflow file
+=collect_badges.yml=) and to use them by their address outside PyPI.
+In case of GitHub, this follows the pattern of
+
+#+begin_src sh :results nil
+  [[https://raw.githubusercontent.com/username/reponame/branch/directory/file.svg]]
+#+end_src
+
+This is relevant for instance to badges by [[https://shields.io/][shields.io]] for which a
+Orgmode code block like
+
+#+begin_src sh :results nil
+  ,#+begin_export html
+  <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+  ,#+end_export
+#+end_src
+
+in the orgmode file /is not/ reliably rendered by GitHub (October
+2025), while e.g.
+
+#+begin_src sh :results nil
+  [[https://0dependencies.dev][https://0dependencies.dev/0dependencies.svg]]
+#+end_src
+
+is.  Badges locally generated (for instance with [[https://pypi.org/project/genbadge/][genbadge]], see the
+example =Makefile=) preferably use the same folder.
+
+** issues not addressed
+
+This project is set up as a proof of principle where =build= /
+=setuptools= is used as backend to compile a Python wheel.  Other
+backends the [[https://packaging.python.org/en/latest/guides/writing-pyproject-toml/][Python Packaging User Guide]] describes (hatchling, Flit,
+PDM, uv-build) are not yet tested.
+
+The workflows of this project act / can be launched individually of
+each other.  A more advanced setup could streamline their use, for
+instance to automate the assignment and tagging of semantic versions,
+or an automated publication of a wheel on PyPI which was built on
+GitHub.

@@ -1,0 +1,41 @@
+name: CI Collect Badges
+
+# This workflow collects external badges from shields.io which then are saved
+# as .svg files in folder `badges`.  The corresponding addresses on shields.io
+# as well as the name of their copies are defined in file `badges.txt`.  To be
+# functional, the hosting GitHub repository must be set to allow running actions
+# and be allowed to write to the very GitHub repository.
+#
+# This workflow preserves already existing badges in said folder.  As an example
+# see the Makefile calling genbadge package.
+
+on:
+  push:
+    branches: [ main ]
+#  schedule:
+#    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  update-badges:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Badges
+        run: |
+          mkdir -p badges
+          while read -r url file; do
+            if [[ ! -z "$url" && ! -z "$file" ]]; then
+              echo "Downloading $url to $file"
+              curl -o "$file" "$url"
+            fi
+          done < badges.txt
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add badges/
+          git commit -m "Update badges" || echo "No changes to commit"
+          git push
