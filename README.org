@@ -2,9 +2,11 @@
 
 [[https://0dependencies.dev][https://0dependencies.dev/0dependencies.svg]]
 
-[[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/python-version.svg]] [[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/black-badge.svg]]
+[[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/python-version.svg]]
+[[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/black-badge.svg]]
 
-[[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/tests-badge.svg]] [[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/flake8-badge.svg]]
+[[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/tests-badge.svg]]
+[[https://raw.githubusercontent.com/nbehrnd/greet2org/main/badges/flake8-badge.svg]]
 
 * purpose of the project
 
@@ -38,7 +40,7 @@ options:
 ** documentation with Orgmode
 
 Similar to [[https://en.wikipedia.org/wiki/Markdown][Markdown]] (=.md=) and [[https://en.wikipedia.org/wiki/ReStructuredText][reStructuredText]] (=.rst=), [[https://orgmode.org/][Orgmode]]
-(=.org) is a [[https://en.wikipedia.org/wiki/Lightweight_markup_language][lightweight markup language (LML)]].  Contrasting to the
+(=.org=) is a [[https://en.wikipedia.org/wiki/Lightweight_markup_language][lightweight markup language (LML)]].  Contrasting to the
 many flavours of Markdown (and to somewhat lesser degree
 reStructuredText) with subtle differences in syntax and support of
 features, Orgmode /as a markup/ is more strict.  See for instance Karl
@@ -195,15 +197,16 @@ in the orgmode file /is not/ reliably rendered by GitHub (October
   [[https://0dependencies.dev][https://0dependencies.dev/0dependencies.svg]]
 #+end_src
 
-is.  Badges locally generated (for instance with [[https://pypi.org/project/genbadge/][genbadge]], see the
-example =Makefile=) preferably use the same folder.
+is (both on GitHub and PyPI).  Badges locally generated (for instance
+with [[https://pypi.org/project/genbadge/][genbadge]], see the example =Makefile=) preferably use the same
+folder.
 
 ** issues not addressed
 
 This project is set up as a proof of principle where =build= /
 =setuptools= is used as backend to compile a Python wheel.  Other
-backends the [[https://packaging.python.org/en/latest/guides/writing-pyproject-toml/][Python Packaging User Guide]] describes (hatchling, Flit,
-PDM, uv-build) are not yet tested.
+backends the [[https://packaging.python.org/en/latest/guides/writing-pyproject-toml/][Python Packaging User Guide]] describes ([[https://pypi.org/project/hatchling/][hatchling]], [[https://pypi.org/project/flit/][flit]],
+[[https://pypi.org/project/pdm/][pdm]], uv-build of [[https://pypi.org/project/uv/][uv]]) are not yet tested.
 
 The workflows of this project act / can be launched individually of
 each other.  A more advanced setup could streamline their use, for
