@@ -7,7 +7,7 @@ name = "greet2org"
 version = "0.1.0"
 requires-python = ">=3.10"
 authors = [
-    { name="Norwid Behrnd", email="nbehrnd@yahoo.com" }
+    { name = "Norwid Behrnd", email = "nbehrnd@yahoo.com" }
 ]
 license = "MIT"
 description = "Python wheel initially documented in Orgmode instead of Markdown"
