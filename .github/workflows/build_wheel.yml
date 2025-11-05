@@ -1,4 +1,4 @@
-name: Build Python wheel
+name: Build Python wheel with `python -m build`
 
 # Prior to the compilation of the Python wheel, a docker image of Pandoc
 # is used to convert the maintained `README.org` Orgmode file into a
