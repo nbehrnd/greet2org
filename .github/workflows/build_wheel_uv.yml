@@ -1,0 +1,48 @@
+name: Build Python wheel with `uv build`
+
+# Prior to the compilation of the Python wheel, a docker image of Pandoc
+# is used to convert the maintained `README.org` Orgmode file into a
+# GitHub flavored Markdown `README.md` PyPI can process.
+#
+# This workflow generates an archive `dist.zip`.  After decompression,
+# .whl and .tar.gz can be manually uploaded with twine.
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  workflow_dispatch:  # launch by the manual trigger
+
+
+jobs:
+  build-and-convert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install pandoc as docker, start
+        uses: docker://pandoc/core:3.8  # no need to fetch LaTeX dependencies
+        with:
+          args: >-
+            --standalone
+            --from org
+            --to markdown_github
+            --output=README.md
+            README.org
+
+      - name: Install build dependency `uv`
+        run: python -m pip install uv
+
+      - name: Build Python wheel with uv
+        run: uv build
+
+      - name: Upload wheel as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/*
