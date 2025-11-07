@@ -1,4 +1,9 @@
 README.md
-.dist/*.*
-.tox/*.*
-.venv/*.*
+.dist
+.tox
+.pytest_cache
+.venv
+build
+src/app/__pycache__
+src/greet2org.egg-info
+tests/__pycache__
