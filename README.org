@@ -204,9 +204,10 @@ folder.
 ** issues not addressed
 
 This project is set up as a proof of principle where =build= /
-=setuptools= is used as backend to compile a Python wheel.  Other
-backends the [[https://packaging.python.org/en/latest/guides/writing-pyproject-toml/][Python Packaging User Guide]] describes ([[https://pypi.org/project/hatchling/][hatchling]], [[https://pypi.org/project/flit/][flit]],
-[[https://pypi.org/project/pdm/][pdm]], uv-build of [[https://pypi.org/project/uv/][uv]]) are not yet tested.
+=setuptools= is used as backend to compile a Python wheel.  With the
+exception of [[https://pypi.org/project/uv/][uv]], other backends the [[https://packaging.python.org/en/latest/guides/writing-pyproject-toml/][Python Packaging User Guide]]
+describes ([[https://pypi.org/project/hatchling/][hatchling]], [[https://pypi.org/project/flit/][flit]], [[https://pypi.org/project/pdm/][pdm]]) are not yet tested.  Note the names
+of the workflows to include the string =pip=, or =uv=, respectively.
 
 The workflows of this project act / can be launched individually of
 each other.  A more advanced setup could streamline their use, for

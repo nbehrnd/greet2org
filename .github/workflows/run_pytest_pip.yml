@@ -1,4 +1,4 @@
-name: CI Run pytest
+name: CI Run pip moderated pytest
 
 # This workflow allows to run pytest for multiple Python interpreters set up
 # for multiple OSes.  With the setup of `tox.ini`, it complements the `pytest`
