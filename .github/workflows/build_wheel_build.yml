@@ -8,8 +8,8 @@ name: Build Python wheel with `python -m build`
 # .whl and .tar.gz can be manually uploaded with twine.
 
 on:
-#  push:
-#    branches: [ "main", "dev" ]
+  push:
+    branches: [ "main", "dev" ]
   workflow_dispatch:  # launch by the manual trigger
 
 
