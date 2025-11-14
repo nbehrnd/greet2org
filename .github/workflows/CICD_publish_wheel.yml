@@ -24,15 +24,15 @@ jobs:
       with:
         python-version: "3.x"
 
-      - name: Install pandoc as docker, start
-        uses: docker://pandoc/core:3.8  # no need to fetch LaTeX dependencies
-        with:
-          args: >-
-            --standalone
-            --from org
-            --to markdown_github
-            --output=README.md
-            README.org
+    - name: Install pandoc as docker, start
+      uses: docker://pandoc/core:3.8  # no need to fetch LaTeX dependencies
+      with:
+        args: >-
+          --standalone
+          --from org
+          --to markdown_github
+          --output=README.md
+          README.org
 
     - name: Install pypa/build
       run: >-
