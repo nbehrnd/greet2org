@@ -3,8 +3,8 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "greet2org"
-version = "0.1.0"
+name = "greeter-nbehrnd"
+version = "0.0.28"
 requires-python = ">=3.10"
 authors = [
     { name = "Norwid Behrnd", email = "nbehrnd@yahoo.com" }
@@ -64,7 +64,7 @@ Repository = "https://github.com/nbehrnd/greet2org"
 Issues = "https://github.com/nbehrnd/greet2org/issues"
 
 [project.scripts]
-greet2org = "app.greeter:main"
+greeter-nbehrnd = "app.greeter:main"
 
 [tool.pytest.ini_options]
 pythonpath = "src"
