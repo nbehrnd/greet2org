@@ -204,13 +204,13 @@ folder.
 ** issues not addressed
 
 This project is set up as a proof of principle where =build= /
-=setuptools= is used as backend to compile a Python wheel.  With the
-exception of [[https://pypi.org/project/uv/][uv]], other backends the [[https://packaging.python.org/en/latest/guides/writing-pyproject-toml/][Python Packaging User Guide]]
-describes ([[https://pypi.org/project/hatchling/][hatchling]], [[https://pypi.org/project/flit/][flit]], [[https://pypi.org/project/pdm/][pdm]]) are not yet tested.  Note the names
-of the workflows to include the string =pip=, or =uv=, respectively.
+=setuptools= is used as backend to compile a Python wheel.  Among the
+other backends /to build/ a wheel the [[https://packaging.python.org/en/latest/guides/writing-pyproject-toml/][Python Packaging User Guide]]
+describes, only [[https://pypi.org/project/uv/][uv]] was tested.  Note the names of the workflows to
+include the string =pip=, or =uv=, respectively.
 
-The workflows of this project act / can be launched individually of
-each other.  A more advanced setup could streamline their use, for
-instance to automate the assignment and tagging of semantic versions,
-or an automated publication of a wheel on PyPI which was built on
-GitHub.
+Most of the workflows of this project act / can be launched
+individually of each other.  With =CICD_publish_wheel.yml= one
+workflow combines building a wheel (including the translation of the
+=.org= to =.md=) and subsequent publication on test.pypi.org.  This is
+to be lauched manually.
