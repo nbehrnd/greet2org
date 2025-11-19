@@ -51,8 +51,8 @@ Depending on the editor used, Orgmode files can be edited, included
 source code can be annotated ([[https://en.wikipedia.org/wiki/Literate_programming][literate programming]]) and executed
 ([[https://youtu.be/fgizHHd7nOo?t=767][example]]).  Initially created for [[https://www.gnu.org/software/emacs/][Emacs]] (where it became an included
 major mode), Orgmode equally is available for instance for [[https://github.com/jceb/vim-orgmode][vim]], or
-[[https://github.com/vscode-org-mode/vscode-org-mode][Visual Studio Code]].  Orgmode /as syntax/ however is agnostic to the
-editor used.
+[[https://github.com/vscode-org-mode/vscode-org-mode][Visual Studio Code]].  Equally see Karl Voit's compilation of tools
+supporting Orgmode markup [[https://gitlab.com/publicvoit/orgdown/-/blob/master/doc/Tool-Support.org?ref_type=heads][here]].
 
 Because PyPi currently does not provide support for Orgmode (see [[https://packaging.python.org/en/latest/guides/making-a-pypi-friendly-readme/][here]],
 last visit October 2025), GitHub workflow =build_wheel.yml= of this
