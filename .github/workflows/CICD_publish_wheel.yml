@@ -9,7 +9,12 @@ name: Publish Python distribution to PyPI and TestPyPI
 # Note: to render this functional, add this workflow file to the trusted
 # publishers on either test.pypi.org, or/and pypi org.
 
-on: # push
+on:
+  push:
+    tags:
+      - "*"
+    branches:
+      - main
   workflow_dispatch:  # launch by the manual trigger
 
 jobs:
